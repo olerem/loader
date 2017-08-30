@@ -18,5 +18,5 @@ ${CROSS}objcopy -I binary -O elf32-littlearm --rename-section \
 	--redefine-sym _binary_blob_bin_end=_dts_end \
 	-B arm blob.bin blob_dts.o
 ${CROSS}as -o imx7m4.o imx7m4.S
-${CROSS}ld -Tlinker.ld -o imx7m4.elf imx7m4.o blob_dts.o blob_linux.o
+${CROSS}ld -Tlinker.ld -o imx7m4.elf imx7m4.o
 sudo cp imx7m4.elf /srv/nfs/sid-armhf/lib/firmware/rproc-imx_rproc-fw
