@@ -15,8 +15,12 @@ _start:
 /* data required by remoteproc loader and actual fw to provide info
  * about shared resources. It is writable, since it can be updated.
  */
-.data
 .section .resource_table, "aw" @progbits
 .word	1, 0, 0, 0	/* struct resource_table base */
 .word	0		/* uint32_t offset[1] */
 
+.section .dts, "aw" @progbits
+.incbin "blob.bin"
+
+.section .linux, "aw" @progbits
+.incbin "blob.bin"
