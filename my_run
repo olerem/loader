@@ -4,17 +4,17 @@
 export CROSS=arm-none-eabi-
 
 ${CROSS}objcopy -I binary -O elf32-littlearm --rename-section \
-	.data=.blob_linux,alloc,load,data,contents \
-	--redefine-sym _binary_blob_bin_start=_blob_linux_start \
-	--redefine-sym _binary_blob_bin_size=_blob_linux_size \
-	--redefine-sym _binary_blob_bin_end=_blob_linux_end \
+	.data=.linux,alloc,load,data,contents \
+	--redefine-sym _binary_blob_bin_start=_linux_start \
+	--redefine-sym _binary_blob_bin_size=_linux_size \
+	--redefine-sym _binary_blob_bin_end=_linux_end \
 	-B arm blob.bin blob_linux.o
 ${CROSS}objcopy -I binary -O elf32-littlearm --rename-section \
-	.data=.blob_dts,alloc,load,data,contents \
-	--redefine-sym _binary_blob_bin_start=_blob_dts_start \
-	--redefine-sym _binary_blob_bin_size=_blob_dts_size \
-	--redefine-sym _binary_blob_bin_end=_blob_dts_end \
+	.data=.dts,alloc,load,data,contents \
+	--redefine-sym _binary_blob_bin_start=_dts_start \
+	--redefine-sym _binary_blob_bin_size=_dts_size \
+	--redefine-sym _binary_blob_bin_end=_dts_end \
 	-B arm blob.bin blob_dts.o
 ${CROSS}as -o imx7m4.o imx7m4.S
-${CROSS}ld -Tlinker.ld -o imx7m4.elf imx7m4.o blob_linux.o blob_dts.o
+${CROSS}ld -Tlinker.ld -o imx7m4.elf imx7m4.o blob_dts.o blob_linux.o
 sudo cp imx7m4.elf /srv/nfs/sid-armhf/lib/firmware/rproc-imx_rproc-fw
