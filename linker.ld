@@ -13,13 +13,14 @@ SECTIONS
 	.text : {
 		imx7m4.o (.text)
 	} >ocram_s
-	.resource_table : {
-		imx7m4.o (.resource_table)
-	} >tcmu
-	.dts 0x10000200 : {
+	.fw 0x10000000 : {
+		. = 0x0200;
 		imx7m4.o (.dts)
-	} >ddri
-	.linux 0x10008000 : {
+		. = 0x8000;
 		imx7m4.o (.linux)
 	} >ddri
+	.resource_table : {
+		imx7m4.o (.resource_table)
+	} >ddri
+
 }
