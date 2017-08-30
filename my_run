@@ -3,7 +3,18 @@
 #export CROSS=/opt/OSELAS.Toolchain-2016.06.1/arm-v7a-linux-gnueabihf/gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized/bin/arm-v7a-linux-gnueabihf-
 export CROSS=arm-none-eabi-
 
+${CROSS}objcopy -I binary -O elf32-littlearm --rename-section \
+	.data=.blob_linux,alloc,load,data,contents \
+	--redefine-sym _binary_blob_bin_start=_blob_linux_start \
+	--redefine-sym _binary_blob_bin_size=_blob_linux_size \
+	--redefine-sym _binary_blob_bin_end=_blob_linux_end \
+	-B arm blob.bin blob_linux.o
+${CROSS}objcopy -I binary -O elf32-littlearm --rename-section \
+	.data=.blob_dts,alloc,load,data,contents \
+	--redefine-sym _binary_blob_bin_start=_blob_dts_start \
+	--redefine-sym _binary_blob_bin_size=_blob_dts_size \
+	--redefine-sym _binary_blob_bin_end=_blob_dts_end \
+	-B arm blob.bin blob_dts.o
 ${CROSS}as -o imx7m4.o imx7m4.S
-#arm-none-eabi-ld -Ttext=0x00180000 -o imx7m4.elf imx7m4.o
-${CROSS}ld -Tlinker.ld -o imx7m4.elf imx7m4.o
-#sudo cp imx7m4.elf /srv/nfs/sid-armhf/lib/firmware/rproc-imx_rproc-fw
+${CROSS}ld -Tlinker.ld -o imx7m4.elf imx7m4.o blob_linux.o blob_dts.o
+sudo cp imx7m4.elf /srv/nfs/sid-armhf/lib/firmware/rproc-imx_rproc-fw
