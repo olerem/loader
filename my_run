@@ -4,13 +4,15 @@
 export CROSS=arm-none-eabi-
 
 ${CROSS}objcopy -I binary -O elf32-littlearm --rename-section \
-	.data=.linux,alloc,load,data,contents \
+	.data=.linux,alloc,load,data \
+	--image-base 0x10008000 \
 	--redefine-sym _binary_blob_bin_start=_linux_start \
 	--redefine-sym _binary_blob_bin_size=_linux_size \
 	--redefine-sym _binary_blob_bin_end=_linux_end \
 	-B arm blob.bin blob_linux.o
 ${CROSS}objcopy -I binary -O elf32-littlearm --rename-section \
-	.data=.dts,alloc,load,data,contents \
+	.data=.dts,alloc,load,data \
+	--image-base 0x10000200 \
 	--redefine-sym _binary_blob_bin_start=_dts_start \
 	--redefine-sym _binary_blob_bin_size=_dts_size \
 	--redefine-sym _binary_blob_bin_end=_dts_end \
