@@ -5,13 +5,14 @@
 	.int reset + 1
 
 reset:
-	
-	mov	r0, #0x55
-	ldr	r1, =(0x40)
-1:
-	str	r0, [r1]
-	add	r0, 1
-	b	1b
+
+#define ADDR_DTB        0x10000200
+#define ADDR_LINUX      0x10008000
+
+	mov     r0, #0
+	mov     r1, #0xffffffff
+	ldr     r2, =(ADDR_DTB)
+	ldr     pc, =(ADDR_LINUX + 1)
 
 	/* data required by remoteproc loader and actual fw to provide info
 	 * about shared resources
