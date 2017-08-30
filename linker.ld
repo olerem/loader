@@ -5,7 +5,7 @@ SECTIONS
 	. = 0x20000000;
 	.data : { *(.data) }
 	. = 0x10000200;
-	.blob_dts : { *(.blob_dts) }
+	.dts : { *(.dts) }
 	. = 0x10008000;
-	.blob_linux : { *(.blob_linux) }
+	.linux : { *(.linux) }
 }
