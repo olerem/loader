@@ -9,8 +9,8 @@ _start:
 
 	mov     r0, #0
 	mov     r1, #0xffffffff
-	ldr     r2, =(0x10000200)
-	ldr     pc, =(0x10008000 + 1)
+	ldr     r2, =(0x18000200)
+	ldr     pc, =(0x18008000 + 1)
 
 /* data required by remoteproc loader and actual fw to provide info
  * about shared resources. It is writable, since it can be updated.
