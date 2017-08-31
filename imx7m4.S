@@ -7,10 +7,12 @@ _start:
 #define ADDR_DTB        0x10000200
 #define ADDR_LINUX      0x10008000
 
-	mov     r0, #0
-	mov     r1, #0xffffffff
-	ldr     r2, =(0x10000200)
-	ldr     pc, =(0x10008000 + 1)
+	mov	r0, #0x55
+	ldr	r1, =(0x40)
+1:
+	str	r0, [r1]
+	add	r0, 1
+	b	1b
 
 /* data required by remoteproc loader and actual fw to provide info
  * about shared resources. It is writable, since it can be updated.
