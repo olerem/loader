@@ -5,8 +5,8 @@ ENTRY(_start)
 MEMORY {
 	ocram_s (rx) : org = 0x00000000, l = 0x00008000
 	tcmu (w)     : org = 0x20000000, l = 0x00008000
-	ddri1 (w)     : org = 0x1fef0000, l = 0x00080000
-	ddri2 (w)     : org = 0x1ff70000, l = 0x00080000
+	ddri1 (w)     : org = 0x18000000, l = 0x00080000
+	ddri2 (w)     : org = 0x18080000, l = 0x00080000
 }
 
 SECTIONS
