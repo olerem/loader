@@ -3,6 +3,10 @@
 .thumb
 .global _start
 _start:
+	.int 0x10020000                 @ Initial SP value
+	.int reset + 1
+
+reset:
 
 #define ADDR_DTB        0x10000200
 #define ADDR_LINUX      0x10008000
@@ -20,7 +24,7 @@ _start:
 .word	0		/* uint32_t offset[1] */
 
 .section .dts, "aw" @progbits
-.incbin "blob.bin"
+.incbin "imx7d-m4-phyboard-zeta.dtb"
 
 .section .linux, "aw" @progbits
-.incbin "blob.bin"
+.incbin "Image"
